@@ -14,6 +14,7 @@ const letterOrder = document.querySelector("#letterOrder");
 const hebrewLetter = document.querySelector("#hebrewLetter");
 const letterName = document.querySelector("#letterName");
 const transliteration = document.querySelector("#transliteration");
+const gematria = document.querySelector("#gematria");
 const meaning = document.querySelector("#meaning");
 const progressText = document.querySelector("#progressText");
 const prevBtn = document.querySelector("#prevBtn");
@@ -43,6 +44,7 @@ function renderCard() {
   hebrewLetter.textContent = card.hebrew;
   letterName.textContent = card.letterName;
   transliteration.textContent = card.transliteration;
+  gematria.textContent = `Gematria Value: ${card.gematria}`;
   meaning.textContent = card.meaning || "Meaning note coming soon.";
   progressText.textContent = `Card ${state.currentIndex + 1} of ${cards.length}`;
   prevBtn.disabled = state.history.length === 0;

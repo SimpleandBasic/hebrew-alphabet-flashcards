@@ -225,6 +225,17 @@ h1 {
   font-weight: 800;
 }
 
+.gematria-value {
+  justify-self: center;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 250, 241, 0.78);
+  color: var(--accent-strong);
+  font-size: 0.98rem;
+  font-weight: 850;
+}
+
 .meaning {
   max-width: 18rem;
   color: var(--muted);
