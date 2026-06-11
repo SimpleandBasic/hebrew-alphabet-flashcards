@@ -64,6 +64,47 @@ h1 {
   line-height: 0.95;
 }
 
+.project-menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.project-menu-title {
+  flex-basis: 100%;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 850;
+}
+
+.project-menu a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.72);
+  color: var(--accent-strong);
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.project-menu a:hover,
+.project-menu a:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.project-menu a.active {
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+  color: #fff8ec;
+}
+
 .progress-pill {
   flex: 0 0 auto;
   margin: 0;
