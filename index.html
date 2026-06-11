@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hebrew Alphabet Flashcards</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">Aleph to Tav</p>
+          <h1>Hebrew Alphabet Flashcards</h1>
+        </div>
+        <p id="progressText" class="progress-pill" aria-live="polite">Card 1 of 22</p>
+      </header>
+
+      <section class="study-area" aria-label="Flashcard study area">
+        <button id="flashcard" class="flashcard" type="button" aria-label="Flip flashcard" aria-pressed="false">
+          <span class="card-face card-front">
+            <img id="letterImage" class="letter-image" alt="">
+            <span id="imageFallback" class="image-fallback" aria-hidden="true"></span>
+            <span class="tap-hint">Tap to flip</span>
+          </span>
+          <span class="card-face card-back">
+            <span id="letterOrder" class="order-chip"></span>
+            <span id="hebrewLetter" class="hebrew-letter" dir="rtl"></span>
+            <span id="letterName" class="letter-name"></span>
+            <span id="transliteration" class="transliteration"></span>
+            <span id="meaning" class="meaning"></span>
+          </span>
+        </button>
+
+        <div class="controls" aria-label="Flashcard controls">
+          <button id="prevBtn" class="secondary-action" type="button">Previous Card</button>
+          <button id="randomBtn" class="primary-action" type="button">Next Random Card</button>
+        </div>
+
+        <label class="shuffle-toggle">
+          <input id="shuffleMode" type="checkbox" checked>
+          <span>Shuffle / Randomize mode</span>
+        </label>
+      </section>
+
+      <section class="grid-section" aria-label="All Hebrew letters">
+        <div class="section-heading">
+          <h2>All Letters</h2>
+          <p>Choose any card to study it.</p>
+        </div>
+        <div id="letterGrid" class="letter-grid"></div>
+      </section>
+    </main>
+
+    <script src="alphabet-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
