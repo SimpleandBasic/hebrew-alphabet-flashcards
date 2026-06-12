@@ -1,24 +1,24 @@
-const decks = {
+const FLASHCARD_SETS = {
   alphabet: {
-    title: "Hebrew Alphabet Flashcards",
+    title: "Alphabet Flashcards",
     eyebrow: "Aleph to Tav",
     gridTitle: "All Letters",
-    gridDescription: "Choose any card to study it.",
-    orderLabel: "Letter",
+    gridDescription: "Choose any letter to study it.",
+    itemLabel: "Letter",
     cards: HEBREW_ALPHABET_CARDS
   },
   pronunciation: {
-    title: "Hebrew Pronunciation Symbols",
-    eyebrow: "Sound marks and vowel helpers",
-    gridTitle: "All Pronunciation Symbols",
-    gridDescription: "Choose a sound mark to practice it.",
-    orderLabel: "Symbol",
-    cards: HEBREW_PRONUNCIATION_CARDS
+    title: "Pronunciation Symbols",
+    eyebrow: "Sound Marks",
+    gridTitle: "Sound Marks",
+    gridDescription: "Pick a vowel mark or pronunciation symbol to practice it.",
+    itemLabel: "Sound mark",
+    cards: HEBREW_PRONUNCIATION_SYMBOL_CARDS
   }
 };
 
 const state = {
-  activeDeckKey: "alphabet",
+  mode: "alphabet",
   currentIndex: 0,
   isFlipped: false,
   history: [],
@@ -28,90 +28,125 @@ const state = {
 const flashcard = document.querySelector("#flashcard");
 const letterImage = document.querySelector("#letterImage");
 const imageFallback = document.querySelector("#imageFallback");
-const frontLabel = document.querySelector("#frontLabel");
+const frontStudyText = document.querySelector("#frontStudyText");
+const frontSymbol = document.querySelector("#frontSymbol");
+const frontName = document.querySelector("#frontName");
 const frontSound = document.querySelector("#frontSound");
+const tapHint = document.querySelector("#tapHint");
 const letterOrder = document.querySelector("#letterOrder");
 const hebrewLetter = document.querySelector("#hebrewLetter");
 const letterName = document.querySelector("#letterName");
 const transliteration = document.querySelector("#transliteration");
+const soundLine = document.querySelector("#soundLine");
+const exampleLine = document.querySelector("#exampleLine");
 const gematria = document.querySelector("#gematria");
 const meaning = document.querySelector("#meaning");
-const example = document.querySelector("#example");
-const memory = document.querySelector("#memory");
+const memoryPicture = document.querySelector("#memoryPicture");
+const category = document.querySelector("#category");
 const progressText = document.querySelector("#progressText");
 const prevBtn = document.querySelector("#prevBtn");
 const randomBtn = document.querySelector("#randomBtn");
 const shuffleMode = document.querySelector("#shuffleMode");
 const letterGrid = document.querySelector("#letterGrid");
-const alphabetDeckBtn = document.querySelector("#alphabetDeckBtn");
-const pronunciationDeckBtn = document.querySelector("#pronunciationDeckBtn");
-const appTitle = document.querySelector("#appTitle");
-const eyebrowText = document.querySelector("#eyebrowText");
+const alphabetMode = document.querySelector("#alphabetMode");
+const pronunciationMode = document.querySelector("#pronunciationMode");
+const modeEyebrow = document.querySelector("#modeEyebrow");
 const gridTitle = document.querySelector("#gridTitle");
 const gridDescription = document.querySelector("#gridDescription");
 
-function getActiveDeck() {
-  return decks[state.activeDeckKey];
+function currentSet() {
+  return FLASHCARD_SETS[state.mode];
 }
 
-function getActiveCards() {
-  return getActiveDeck().cards;
+function currentCards() {
+  return currentSet().cards;
 }
 
-function setOptionalText(element, text, hidden = false) {
-  element.textContent = text || "";
-  element.hidden = hidden || !text;
+function setHidden(element, shouldHide) {
+  element.hidden = shouldHide;
 }
 
-function renderCard() {
-  const deck = getActiveDeck();
-  const cards = getActiveCards();
-  const card = cards[state.currentIndex];
-  const isAlphabetDeck = state.activeDeckKey === "alphabet";
+function displaySymbol(card) {
+  if (card.example === card.symbol) return card.symbol;
+  return `\u25cc${card.symbol}`;
+}
 
-  flashcard.classList.toggle("is-flipped", state.isFlipped);
-  flashcard.setAttribute("aria-pressed", String(state.isFlipped));
-  flashcard.classList.toggle("symbol-card", !isAlphabetDeck);
-
-  appTitle.textContent = deck.title;
-  eyebrowText.textContent = deck.eyebrow;
-  gridTitle.textContent = deck.gridTitle;
-  gridDescription.textContent = deck.gridDescription;
-
-  alphabetDeckBtn.classList.toggle("active", isAlphabetDeck);
-  alphabetDeckBtn.setAttribute("aria-pressed", String(isAlphabetDeck));
-  pronunciationDeckBtn.classList.toggle("active", !isAlphabetDeck);
-  pronunciationDeckBtn.setAttribute("aria-pressed", String(!isAlphabetDeck));
-
-  letterImage.hidden = !isAlphabetDeck;
-  if (isAlphabetDeck) {
-    letterImage.alt = `${card.letterName} Hebrew letter image`;
-    letterImage.onerror = () => {
-      if (letterImage.src !== card.image) {
-        letterImage.src = card.image;
-        return;
-      }
-      letterImage.hidden = true;
-    };
-    letterImage.src = card.localImage || card.image;
-  } else {
-    letterImage.removeAttribute("src");
-    letterImage.alt = "";
-    letterImage.onerror = null;
-  }
+function renderAlphabetCard(card, cards) {
+  flashcard.classList.remove("sound-card");
+  letterImage.hidden = false;
+  letterImage.alt = `${card.letterName} Hebrew letter image`;
+  letterImage.onerror = () => {
+    if (letterImage.src !== card.image) {
+      letterImage.src = card.image;
+      return;
+    }
+    letterImage.hidden = true;
+  };
+  letterImage.src = card.localImage || card.image;
 
   imageFallback.textContent = card.hebrew;
-  frontLabel.textContent = card.letterName;
-  setOptionalText(frontSound, card.sound);
+  setHidden(frontStudyText, true);
+  tapHint.textContent = "Tap to flip";
 
-  letterOrder.textContent = `${deck.orderLabel} ${card.id} of ${cards.length}`;
+  letterOrder.textContent = `Letter ${card.id} of ${cards.length}`;
   hebrewLetter.textContent = card.hebrew;
   letterName.textContent = card.letterName;
   transliteration.textContent = card.transliteration;
-  setOptionalText(gematria, card.gematria ? `Gematria Value: ${card.gematria}` : card.category);
+  gematria.textContent = `Gematria Value: ${card.gematria}`;
   meaning.textContent = card.meaning || "Meaning note coming soon.";
-  setOptionalText(example, card.example);
-  setOptionalText(memory, card.memory ? `Memory picture: ${card.memory}` : "");
+
+  setHidden(soundLine, true);
+  setHidden(exampleLine, true);
+  setHidden(gematria, false);
+  setHidden(memoryPicture, true);
+  setHidden(category, true);
+}
+
+function renderPronunciationCard(card, cards) {
+  flashcard.classList.add("sound-card");
+  letterImage.hidden = true;
+  imageFallback.textContent = card.symbol;
+  setHidden(frontStudyText, false);
+  tapHint.textContent = "Show answer";
+
+  frontSymbol.textContent = displaySymbol(card);
+  frontName.textContent = card.name;
+  frontSound.textContent = card.simpleSound;
+
+  letterOrder.textContent = `Sound mark ${card.id} of ${cards.length}`;
+  hebrewLetter.textContent = displaySymbol(card);
+  letterName.textContent = card.name;
+  transliteration.textContent = `Name sound: ${card.transliteration}`;
+  soundLine.textContent = `Sound: ${card.simpleSound}`;
+  exampleLine.innerHTML = `Try it with aleph: <span dir="rtl">${card.example}</span>`;
+  meaning.textContent = card.explanation;
+  memoryPicture.textContent = card.memoryPicture;
+  category.textContent = card.category;
+
+  setHidden(soundLine, false);
+  setHidden(exampleLine, false);
+  setHidden(gematria, true);
+  setHidden(memoryPicture, false);
+  setHidden(category, false);
+}
+
+function renderCard() {
+  const set = currentSet();
+  const cards = currentCards();
+  const card = cards[state.currentIndex];
+
+  flashcard.classList.toggle("is-flipped", state.isFlipped);
+  flashcard.setAttribute("aria-pressed", String(state.isFlipped));
+
+  if (state.mode === "alphabet") {
+    renderAlphabetCard(card, cards);
+  } else {
+    renderPronunciationCard(card, cards);
+  }
+
+  modeEyebrow.textContent = set.eyebrow;
+  gridTitle.textContent = set.gridTitle;
+  gridDescription.textContent = set.gridDescription;
   progressText.textContent = `Card ${state.currentIndex + 1} of ${cards.length}`;
   prevBtn.disabled = state.history.length === 0;
 
@@ -126,22 +161,12 @@ function setCard(index, remember = true) {
   renderCard();
 }
 
-function switchDeck(deckKey) {
-  if (deckKey === state.activeDeckKey) return;
-  state.activeDeckKey = deckKey;
-  state.currentIndex = 0;
-  state.isFlipped = false;
-  state.history = [];
-  buildGrid();
-  renderCard();
-}
-
 function nextSequentialIndex() {
-  return (state.currentIndex + 1) % getActiveCards().length;
+  return (state.currentIndex + 1) % currentCards().length;
 }
 
 function nextRandomIndex() {
-  const cards = getActiveCards();
+  const cards = currentCards();
   if (cards.length < 2) return state.currentIndex;
   let next = state.currentIndex;
   while (next === state.currentIndex) {
@@ -163,25 +188,46 @@ function goPrevious() {
 }
 
 function buildGrid() {
+  const cards = currentCards();
   letterGrid.innerHTML = "";
-  getActiveCards().forEach((card, index) => {
+  cards.forEach((card, index) => {
     const button = document.createElement("button");
+    const symbol = state.mode === "alphabet" ? card.hebrew : displaySymbol(card);
+    const name = state.mode === "alphabet" ? card.letterName : card.name;
+    const orderText = state.mode === "alphabet" ? card.id : card.category;
     button.type = "button";
     button.className = "grid-card";
     button.innerHTML = `
-      <span class="grid-hebrew" dir="rtl">${card.hebrew}</span>
-      <span class="grid-name">${card.letterName}</span>
-      <span class="grid-order">${card.id}</span>
+      <span class="grid-hebrew" dir="rtl">${symbol}</span>
+      <span class="grid-name">${name}</span>
+      <span class="grid-order">${orderText}</span>
     `;
     button.addEventListener("click", () => setCard(index));
     letterGrid.appendChild(button);
   });
+  updateGridSelection();
 }
 
 function updateGridSelection() {
   [...letterGrid.children].forEach((button, index) => {
     button.classList.toggle("is-selected", index === state.currentIndex);
   });
+}
+
+function setMode(mode) {
+  if (mode === state.mode) return;
+  state.mode = mode;
+  state.currentIndex = 0;
+  state.isFlipped = false;
+  state.history = [];
+
+  alphabetMode.classList.toggle("is-active", mode === "alphabet");
+  pronunciationMode.classList.toggle("is-active", mode === "pronunciation");
+  alphabetMode.setAttribute("aria-selected", String(mode === "alphabet"));
+  pronunciationMode.setAttribute("aria-selected", String(mode === "pronunciation"));
+
+  buildGrid();
+  renderCard();
 }
 
 flashcard.addEventListener("click", () => {
@@ -191,8 +237,8 @@ flashcard.addEventListener("click", () => {
 
 randomBtn.addEventListener("click", goNext);
 prevBtn.addEventListener("click", goPrevious);
-alphabetDeckBtn.addEventListener("click", () => switchDeck("alphabet"));
-pronunciationDeckBtn.addEventListener("click", () => switchDeck("pronunciation"));
+alphabetMode.addEventListener("click", () => setMode("alphabet"));
+pronunciationMode.addEventListener("click", () => setMode("pronunciation"));
 
 shuffleMode.addEventListener("change", () => {
   state.shuffleMode = shuffleMode.checked;

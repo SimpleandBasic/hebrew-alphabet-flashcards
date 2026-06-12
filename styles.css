@@ -116,32 +116,35 @@ h1 {
   font-weight: 800;
 }
 
-.deck-switcher {
+.mode-tabs {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  width: min(100%, 430px);
-  margin: 0 auto 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  width: min(100%, 520px);
+  margin: 0 auto 18px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 253, 248, 0.7);
 }
 
-.deck-button {
-  min-height: 46px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 253, 248, 0.78);
+.mode-tab {
+  min-height: 44px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
   color: var(--accent-strong);
   font-weight: 850;
   cursor: pointer;
 }
 
-.deck-button:hover,
-.deck-button:focus-visible {
+.mode-tab:hover,
+.mode-tab:focus-visible {
   border-color: var(--accent);
   outline: none;
 }
 
-.deck-button.active {
-  border-color: var(--accent-strong);
+.mode-tab.is-active {
   background: var(--accent-strong);
   color: #fff8ec;
 }
@@ -206,6 +209,40 @@ h1 {
   object-fit: contain;
 }
 
+.front-study-text {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.front-symbol {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(7rem, 36vw, 13rem);
+  font-weight: 850;
+  line-height: 0.9;
+}
+
+.front-name {
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  font-weight: 900;
+}
+
+.front-sound {
+  max-width: 17rem;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 250, 241, 0.86);
+  color: var(--accent-strong);
+  font-size: 1rem;
+  font-weight: 850;
+  line-height: 1.3;
+}
+
 .image-fallback {
   position: absolute;
   inset: 0;
@@ -216,35 +253,6 @@ h1 {
   font-size: clamp(10rem, 55vw, 17rem);
   font-weight: 800;
   line-height: 1;
-}
-
-.symbol-card .image-fallback {
-  color: rgba(81, 39, 22, 0.2);
-  font-size: clamp(7rem, 44vw, 14rem);
-}
-
-.front-label,
-.front-sound {
-  position: relative;
-  z-index: 3;
-  align-self: end;
-  justify-self: center;
-  text-align: center;
-}
-
-.front-label {
-  margin-bottom: 44px;
-  color: var(--accent-strong);
-  font-size: clamp(1.8rem, 8vw, 3rem);
-  font-weight: 950;
-}
-
-.front-sound {
-  margin-bottom: 10px;
-  max-width: 18rem;
-  color: var(--accent);
-  font-size: 1.05rem;
-  font-weight: 850;
 }
 
 .tap-hint {
@@ -273,10 +281,6 @@ h1 {
   line-height: 0.9;
 }
 
-.symbol-card .hebrew-letter {
-  font-size: clamp(4.6rem, 24vw, 8rem);
-}
-
 .letter-name {
   font-size: clamp(2rem, 9vw, 3.4rem);
   font-weight: 900;
@@ -286,6 +290,23 @@ h1 {
   color: var(--accent);
   font-size: 1.2rem;
   font-weight: 800;
+}
+
+.sound-line,
+.example-line {
+  color: var(--accent-strong);
+  font-size: 1rem;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.example-line span {
+  display: inline-block;
+  margin-left: 4px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 .gematria-value {
@@ -299,27 +320,31 @@ h1 {
   font-weight: 850;
 }
 
-.meaning,
-.memory-line {
+.meaning {
   max-width: 18rem;
   color: var(--muted);
   font-size: 1.05rem;
   line-height: 1.45;
 }
 
-.example-line {
-  justify-self: center;
-  padding: 8px 12px;
-  border-radius: 12px;
-  background: rgba(199, 146, 63, 0.14);
-  color: var(--accent-strong);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.25rem;
-  font-weight: 850;
+.memory-picture {
+  max-width: 18rem;
+  color: var(--ink);
+  font-size: 0.98rem;
+  font-weight: 750;
+  line-height: 1.42;
 }
 
-.memory-line {
-  font-size: 0.96rem;
+.category-chip {
+  justify-self: center;
+  padding: 6px 10px;
+  border: 1px solid rgba(123, 63, 33, 0.28);
+  border-radius: 999px;
+  background: rgba(199, 146, 63, 0.14);
+  color: var(--accent-strong);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .controls {
@@ -433,6 +458,8 @@ h1 {
   color: var(--gold);
   font-size: 0.76rem;
   font-weight: 900;
+  max-width: calc(100% - 16px);
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 640px) {
@@ -451,15 +478,35 @@ h1 {
     text-align: center;
   }
 
-  .deck-switcher {
-    grid-template-columns: 1fr;
-  }
-
   .flashcard {
     width: min(100%, 370px);
   }
 
   .controls {
     grid-template-columns: 1fr;
+  }
+
+  .mode-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .sound-card .card-back {
+    gap: 8px;
+    padding: 20px;
+  }
+
+  .sound-card .hebrew-letter {
+    font-size: clamp(5rem, 24vw, 8rem);
+  }
+
+  .sound-card .letter-name {
+    font-size: clamp(1.65rem, 8vw, 2.5rem);
+  }
+
+  .sound-line,
+  .example-line,
+  .meaning,
+  .memory-picture {
+    font-size: 0.95rem;
   }
 }

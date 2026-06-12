@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hebrew Alphabet Flashcards</title>
+    <title>Hebrew Flashcards</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <main class="app-shell">
       <header class="app-header">
         <div>
-          <p id="eyebrowText" class="eyebrow">Aleph to Tav</p>
-          <h1 id="appTitle">Hebrew Alphabet Flashcards</h1>
+          <p id="modeEyebrow" class="eyebrow">Aleph to Tav</p>
+          <h1>Hebrew Flashcards</h1>
           <nav class="project-menu" aria-label="Hebrew Learning Projects">
             <span class="project-menu-title">Hebrew Learning Projects</span>
             <a href="https://simpleandbasic.github.io/Hebrew-Language-Bible-Study/">Bible Word Study</a>
@@ -21,29 +21,34 @@
         <p id="progressText" class="progress-pill" aria-live="polite">Card 1 of 22</p>
       </header>
 
-      <section class="deck-switcher" aria-label="Choose flashcard deck">
-        <button id="alphabetDeckBtn" class="deck-button active" type="button" aria-pressed="true">Alphabet</button>
-        <button id="pronunciationDeckBtn" class="deck-button" type="button" aria-pressed="false">Pronunciation Symbols</button>
-      </section>
+      <div class="mode-tabs" role="tablist" aria-label="Choose flashcard set">
+        <button id="alphabetMode" class="mode-tab is-active" type="button" role="tab" aria-selected="true">Alphabet Flashcards</button>
+        <button id="pronunciationMode" class="mode-tab" type="button" role="tab" aria-selected="false">Pronunciation Symbols</button>
+      </div>
 
       <section class="study-area" aria-label="Flashcard study area">
         <button id="flashcard" class="flashcard" type="button" aria-label="Flip flashcard" aria-pressed="false">
           <span class="card-face card-front">
             <img id="letterImage" class="letter-image" alt="">
             <span id="imageFallback" class="image-fallback" aria-hidden="true"></span>
-            <span id="frontLabel" class="front-label"></span>
-            <span id="frontSound" class="front-sound"></span>
-            <span class="tap-hint">Tap to flip</span>
+            <span id="frontStudyText" class="front-study-text">
+              <span id="frontSymbol" class="front-symbol" dir="rtl"></span>
+              <span id="frontName" class="front-name"></span>
+              <span id="frontSound" class="front-sound"></span>
+            </span>
+            <span id="tapHint" class="tap-hint">Tap to flip</span>
           </span>
           <span class="card-face card-back">
             <span id="letterOrder" class="order-chip"></span>
             <span id="hebrewLetter" class="hebrew-letter" dir="rtl"></span>
             <span id="letterName" class="letter-name"></span>
             <span id="transliteration" class="transliteration"></span>
+            <span id="soundLine" class="sound-line"></span>
+            <span id="exampleLine" class="example-line"></span>
             <span id="gematria" class="gematria-value"></span>
             <span id="meaning" class="meaning"></span>
-            <span id="example" class="example-line" dir="rtl"></span>
-            <span id="memory" class="memory-line"></span>
+            <span id="memoryPicture" class="memory-picture"></span>
+            <span id="category" class="category-chip"></span>
           </span>
         </button>
 
@@ -58,7 +63,7 @@
         </label>
       </section>
 
-      <section class="grid-section" aria-label="All cards in selected deck">
+      <section class="grid-section" aria-label="Flashcard list">
         <div class="section-heading">
           <h2 id="gridTitle">All Letters</h2>
           <p id="gridDescription">Choose any card to study it.</p>
