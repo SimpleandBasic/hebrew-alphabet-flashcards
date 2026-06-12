@@ -10,8 +10,8 @@
     <main class="app-shell">
       <header class="app-header">
         <div>
-          <p class="eyebrow">Aleph to Tav</p>
-          <h1>Hebrew Alphabet Flashcards</h1>
+          <p id="eyebrowText" class="eyebrow">Aleph to Tav</p>
+          <h1 id="appTitle">Hebrew Alphabet Flashcards</h1>
           <nav class="project-menu" aria-label="Hebrew Learning Projects">
             <span class="project-menu-title">Hebrew Learning Projects</span>
             <a href="https://simpleandbasic.github.io/Hebrew-Language-Bible-Study/">Bible Word Study</a>
@@ -21,11 +21,18 @@
         <p id="progressText" class="progress-pill" aria-live="polite">Card 1 of 22</p>
       </header>
 
+      <section class="deck-switcher" aria-label="Choose flashcard deck">
+        <button id="alphabetDeckBtn" class="deck-button active" type="button" aria-pressed="true">Alphabet</button>
+        <button id="pronunciationDeckBtn" class="deck-button" type="button" aria-pressed="false">Pronunciation Symbols</button>
+      </section>
+
       <section class="study-area" aria-label="Flashcard study area">
         <button id="flashcard" class="flashcard" type="button" aria-label="Flip flashcard" aria-pressed="false">
           <span class="card-face card-front">
             <img id="letterImage" class="letter-image" alt="">
             <span id="imageFallback" class="image-fallback" aria-hidden="true"></span>
+            <span id="frontLabel" class="front-label"></span>
+            <span id="frontSound" class="front-sound"></span>
             <span class="tap-hint">Tap to flip</span>
           </span>
           <span class="card-face card-back">
@@ -35,6 +42,8 @@
             <span id="transliteration" class="transliteration"></span>
             <span id="gematria" class="gematria-value"></span>
             <span id="meaning" class="meaning"></span>
+            <span id="example" class="example-line" dir="rtl"></span>
+            <span id="memory" class="memory-line"></span>
           </span>
         </button>
 
@@ -49,16 +58,17 @@
         </label>
       </section>
 
-      <section class="grid-section" aria-label="All Hebrew letters">
+      <section class="grid-section" aria-label="All cards in selected deck">
         <div class="section-heading">
-          <h2>All Letters</h2>
-          <p>Choose any card to study it.</p>
+          <h2 id="gridTitle">All Letters</h2>
+          <p id="gridDescription">Choose any card to study it.</p>
         </div>
         <div id="letterGrid" class="letter-grid"></div>
       </section>
     </main>
 
     <script src="alphabet-data.js"></script>
+    <script src="pronunciation-data.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
