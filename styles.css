@@ -116,6 +116,36 @@ h1 {
   font-weight: 800;
 }
 
+.deck-switcher {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: min(100%, 430px);
+  margin: 0 auto 16px;
+}
+
+.deck-button {
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.78);
+  color: var(--accent-strong);
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.deck-button:hover,
+.deck-button:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.deck-button.active {
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+  color: #fff8ec;
+}
+
 .study-area {
   display: grid;
   gap: 16px;
@@ -188,6 +218,35 @@ h1 {
   line-height: 1;
 }
 
+.symbol-card .image-fallback {
+  color: rgba(81, 39, 22, 0.2);
+  font-size: clamp(7rem, 44vw, 14rem);
+}
+
+.front-label,
+.front-sound {
+  position: relative;
+  z-index: 3;
+  align-self: end;
+  justify-self: center;
+  text-align: center;
+}
+
+.front-label {
+  margin-bottom: 44px;
+  color: var(--accent-strong);
+  font-size: clamp(1.8rem, 8vw, 3rem);
+  font-weight: 950;
+}
+
+.front-sound {
+  margin-bottom: 10px;
+  max-width: 18rem;
+  color: var(--accent);
+  font-size: 1.05rem;
+  font-weight: 850;
+}
+
 .tap-hint {
   position: absolute;
   right: 18px;
@@ -214,6 +273,10 @@ h1 {
   line-height: 0.9;
 }
 
+.symbol-card .hebrew-letter {
+  font-size: clamp(4.6rem, 24vw, 8rem);
+}
+
 .letter-name {
   font-size: clamp(2rem, 9vw, 3.4rem);
   font-weight: 900;
@@ -236,11 +299,27 @@ h1 {
   font-weight: 850;
 }
 
-.meaning {
+.meaning,
+.memory-line {
   max-width: 18rem;
   color: var(--muted);
   font-size: 1.05rem;
   line-height: 1.45;
+}
+
+.example-line {
+  justify-self: center;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(199, 146, 63, 0.14);
+  color: var(--accent-strong);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+  font-weight: 850;
+}
+
+.memory-line {
+  font-size: 0.96rem;
 }
 
 .controls {
@@ -370,6 +449,10 @@ h1 {
   .progress-pill {
     align-self: stretch;
     text-align: center;
+  }
+
+  .deck-switcher {
+    grid-template-columns: 1fr;
   }
 
   .flashcard {
