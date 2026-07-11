@@ -1,0 +1,53 @@
+const hebrewAnchorCards = [
+  {
+    id: "zakar",
+    hebrewWord: "זָכַר",
+    transliteration: "Zakar",
+    pronunciation: "zah-KHAR",
+    simpleMeaning: "To remember in a way that leads to faithful action.",
+    rootLetters: "ז־כ־ר",
+    personalAnchor: "Remembering is not only storing a fact. It is returning to what our Father has done and allowing that truth to shape the next step.",
+    fatherConnection: "Our Father teaches His people to remember His faithfulness so fear does not become the loudest voice in the room.",
+    scriptureText: "I will remember the works of the LORD: surely I will remember thy wonders of old.",
+    scriptureReference: "Psalm 77:11 KJV",
+    aceCategory: "Memory System",
+    conversationReference: "Hebrew Anchors product conversation",
+    visualPrompt: "A peaceful stone memorial at sunrise, warm light, ancient landscape, reverent watercolor style",
+    status: "new",
+    artClass: "art-memory"
+  },
+  {
+    id: "shalom",
+    hebrewWord: "שָׁלוֹם",
+    transliteration: "Shalom",
+    pronunciation: "shah-LOHM",
+    simpleMeaning: "Wholeness, peace, completeness, and things being set right.",
+    rootLetters: "ש־ל־ם",
+    personalAnchor: "Peace is not merely the absence of noise. It is the system becoming whole again.",
+    fatherConnection: "Our Father does not only calm us. He restores what has been fractured and leads us toward wholeness.",
+    scriptureText: "The LORD will give strength unto his people; the LORD will bless his people with peace.",
+    scriptureReference: "Psalm 29:11 KJV",
+    aceCategory: "Nervous System",
+    conversationReference: "Hebrew Anchors sample deck",
+    visualPrompt: "Still water reflecting a sunrise, complete circle of stones, warm painterly biblical atmosphere",
+    status: "learning",
+    artClass: "art-peace"
+  },
+  {
+    id: "lev",
+    hebrewWord: "לֵב",
+    transliteration: "Lev",
+    pronunciation: "LAYV",
+    simpleMeaning: "The inner person: heart, thought, desire, and intention.",
+    rootLetters: "ל־ב",
+    personalAnchor: "The heart is more than emotion. It is the inner control room where attention, desire, and choices meet.",
+    fatherConnection: "Our Father sees the inner person clearly and patiently teaches the heart to become steady and wise.",
+    scriptureText: "Create in me a clean heart, O God; and renew a right spirit within me.",
+    scriptureReference: "Psalm 51:10 KJV",
+    aceCategory: "Observer System",
+    conversationReference: "Ace OS heart and observer reflections",
+    visualPrompt: "A warm illuminated inner chamber with a small lamp, peaceful sacred atmosphere, symbolic watercolor",
+    status: "remembered",
+    artClass: "art-heart"
+  }
+];
