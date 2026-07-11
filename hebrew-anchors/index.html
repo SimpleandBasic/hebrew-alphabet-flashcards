@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3eadb">
+    <title>Hebrew Anchors</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">Words worth remembering</p>
+          <h1>Hebrew Anchors</h1>
+          <p class="subtitle">Personal Hebrew words rooted in Scripture, memory, and our Father.</p>
+        </div>
+        <p id="progressText" class="progress-pill" aria-live="polite"></p>
+      </header>
+
+      <section class="study-area" aria-label="Hebrew card study area">
+        <article id="anchorCard" class="anchor-card">
+          <div id="cardArtwork" class="card-artwork" role="img" aria-label="Symbolic artwork for this Hebrew word">
+            <span id="artSymbol" class="art-symbol" dir="rtl"></span>
+            <span class="art-label">Visual anchor</span>
+          </div>
+
+          <div class="card-content">
+            <div class="word-heading">
+              <div>
+                <p id="hebrewWord" class="hebrew-word" dir="rtl"></p>
+                <h2 id="transliteration"></h2>
+                <p id="pronunciation" class="pronunciation"></p>
+              </div>
+              <span id="statusBadge" class="status-badge"></span>
+            </div>
+
+            <p id="simpleMeaning" class="simple-meaning"></p>
+
+            <button id="revealButton" class="reveal-button" type="button" aria-expanded="false">
+              Reveal the anchor
+            </button>
+
+            <div id="anchorDetails" class="anchor-details" hidden>
+              <section>
+                <h3>Personal anchor</h3>
+                <p id="personalAnchor"></p>
+              </section>
+              <section>
+                <h3>Connection to our Father</h3>
+                <p id="fatherConnection"></p>
+              </section>
+              <blockquote>
+                <p id="scriptureText"></p>
+                <cite id="scriptureReference"></cite>
+              </blockquote>
+              <dl class="metadata-list">
+                <div><dt>Root</dt><dd id="rootLetters" dir="rtl"></dd></div>
+                <div><dt>Ace OS</dt><dd id="aceCategory"></dd></div>
+                <div><dt>Source</dt><dd id="conversationReference"></dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <fieldset class="status-controls">
+          <legend>How well do you remember this?</legend>
+          <button type="button" data-status="new">New</button>
+          <button type="button" data-status="learning">Learning</button>
+          <button type="button" data-status="remembered">Remembered</button>
+        </fieldset>
+
+        <div class="navigation-controls">
+          <button id="previousButton" class="secondary-button" type="button">Previous</button>
+          <button id="nextButton" class="primary-button" type="button">Next anchor</button>
+        </div>
+      </section>
+
+      <aside class="future-note">
+        <strong>Future connector ready:</strong> each sample card includes a conversation reference and visual prompt field that an MCP connector can submit later.
+      </aside>
+    </main>
+
+    <script src="cards.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
